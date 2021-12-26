@@ -1,12 +1,15 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from "react";
+import { useNavigation } from "@react-navigation/core";
+import { View, Text, Button } from "react-native";
 
 const HomeSreen = () => {
-    return (
-        <View>
-            <Text>I am the homescreen</Text>
-        </View>
-    )
-}
+  const navigation = useNavigation();
+  return (
+    <View>
+      <Text>I am the homescreen</Text>
+      <Button title="Go to Chat Screen" onPress={() => navigation.navigate("Chat")} />
+    </View>
+  );
+};
 
-export default HomeSreen
+export default HomeSreen;
