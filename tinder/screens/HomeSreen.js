@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, SafeAreaView } from "react-native";
+import useAuth from "../hooks/useAuth";
 
 const HomeSreen = () => {
   const navigation = useNavigation();
+  const {logout} = useAuth();
+
+  //get rid of header
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerShown:false,
+  //   })
+  // }, []);
+
   return (
-    <View>
+    <SafeAreaView>
       <Text>I am the homescreen</Text>
       <Button title="Go to Chat Screen" onPress={() => navigation.navigate("Chat")} />
-    </View>
+      <Button title = "LogOut" onPress = {logout} />
+    </SafeAreaView>
   );
 };
 
