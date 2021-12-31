@@ -2,9 +2,9 @@
 creating a dating app (currently it is a Tinder clone, but will add a social media aspect to it where you can have create your own "boyfriend/girlfriend" application)
 More Updates to Come! 
 
-##React Native and Firebase
+## React Native and Firebase
 
-##Current Features Implemented
+## Current Features Implemented
 
 1) Google Authentication
 2) Chatting Feature
