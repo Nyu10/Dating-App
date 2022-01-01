@@ -7,9 +7,12 @@ import LoginScreen from "./screens/LoginScreen";
 import useAuth from "./hooks/useAuth";
 import ModalScreen from "./screens/ModalScreen";
 import MatchedScreen from "./screens/MatchedScreen";
+import MessageScreen from "./screens/MessageScreen";
 
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import BottomTab from "./componenets/BottomTab";
 const Stack = createNativeStackNavigator();
-
+const Tab = createBottomTabNavigator();
 const StackNavigator = () => {
   const { user } = useAuth();
   return (
@@ -21,14 +24,16 @@ const StackNavigator = () => {
       {user ? (
         <>
           <Stack.Group>
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Home" component={BottomTab} />
             <Stack.Screen name="Chat" component={ChatScreen} />
+            <Stack.Screen name="Message" component={MessageScreen} />
+            <Stack.Screen name="BottomTab" component={BottomTab} />
           </Stack.Group>
           <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
           <Stack.Group screenOptions={{ presentation: "transparentModal" }}>
-            <Stack.Screen name="Matched" component={MatchedScreen} />
+            <Stack.Screen name="Match" component={MatchedScreen} />
           </Stack.Group>
         </>
       ) : (

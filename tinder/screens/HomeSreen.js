@@ -27,6 +27,7 @@ import {
 import { db } from "../firebase";
 import generateId from "../lib/generated";
 
+
 const DUMMY_DATA = [
   {
     firstName: "Katara",
@@ -91,8 +92,7 @@ const HomeSreen = () => {
         collection(db, "users", user.uid, "swipes")
       ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
       const passedUserIds = passes.length > 0 ? passes : ["none"];
-      const swipedUserIds = swipes.length > 0 ? passes : ["none"];
-
+      const swipedUserIds = swipes.length > 0 ? swipes : ["none"];
       unsub = onSnapshot(
         query(
           collection(db, "users"),
@@ -126,16 +126,24 @@ const HomeSreen = () => {
     const loggedInProfile = await (
       await getDoc(doc(db, "users", user.uid))
     ).data();
-
+    const docRef = doc(db, "users", userSwiped.id, "swipes", user.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
     //Check if the user swiped on you...
     getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
       (snapshot) => {
-        
+        console.log(userSwiped.displayName);
+        console.log(user.displayName);
         setDoc(doc(db, "users", user.uid, "swipes", userSwiped.id), userSwiped);
         //they have swiped on you, so it's a match
-        if (snapshot.exists) {
+        if (snapshot.exists()) {
           console.log(`Hooray, You MATCHED with ${userSwiped.displayName}`);
-          setDoc(doc(db, 'matches', generateId(user.uid, userSwiped.id)), {
+          setDoc(doc(db, "matches", generateId(user.uid, userSwiped.id)), {
             users: {
               [user.uid]: loggedInProfile,
               [userSwiped.id]: userSwiped,
@@ -143,17 +151,18 @@ const HomeSreen = () => {
             usersMatched: [user.uid, userSwiped.id],
             timestamp: serverTimestamp(),
           });
-          navigation.navigate('Match', {
-            loggedInProfile, userSwiped,
-          })
-        }
-        else{
+          navigation.navigate("Match", {
+            loggedInProfile,
+            userSwiped,
+          });
+        } else {
           //either first interaction or they didn't swipe on you
-          console.log(`You swiped on ${userSwiped.displayName} (${userSwiped.job})`);
+          console.log(
+            `You swiped on ${userSwiped.displayName} (${userSwiped.job})`
+          );
         }
       }
     );
-
   };
   return (
     <SafeAreaView style={tw("flex-1")}>

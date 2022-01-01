@@ -12,7 +12,9 @@ const MatchedScreen = () => {
   return (
     <View style={[tw("h-full bg-red-500 pt-20"), { opacity: 0.89 }]}>
       <View style={tw("justify-center px-10, pt-20")}>
-        <Image source={{ uri: "https://links.papareact.com/mg9" }} />
+        <Image 
+        style={tw("h-20 w-full ")}
+        source={{ uri: "https://links.papareact.com/mg9" }} />
       </View>
       <Text style={tw("text-white text-center mt-5")}>
         You and {userSwiped.displayName} have liked each other.
@@ -27,6 +29,15 @@ const MatchedScreen = () => {
           source={{ uri: userSwiped.photoURL }}
         />
       </View>
+      <TouchableOpacity
+        style={tw("bg-white m-5 px-10 py-8 rounded-full mt-20")}
+        onPress={() => {
+            navigation.goBack();
+            navigation.navigate("Chat");
+        }}
+      >
+        <Text style={tw("text-center")}> Send a Message</Text>
+      </TouchableOpacity>
     </View>
   );
 };
