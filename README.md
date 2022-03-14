@@ -1,5 +1,5 @@
 # Dating-App Made with React Native and Firebase!
-creating a dating app (currently it is a Tinder clone, but will add a social media aspect to it where you can have create your own "boyfriend/girlfriend" application)
+creating a dating app (still a work in progress, will add a social media aspect to it where you can have create your own "boyfriend/girlfriend" application)
 More Updates to Come!
 
 ## Current Implementations: 
